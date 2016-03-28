@@ -17,12 +17,16 @@ module Listable
   
   end
 
-  #refactor format_priority
+  # refactor format_priority with switch/case
+  # added invalid priority input(not nil and not in the list below)
   def format_priority(input_priority)
-    value = " ⇧" if input_priority == "high"
-    value = " ⇨" if input_priority == "medium"
-    value = " ⇩" if input_priority == "low"
-    value = "" if !input_priority
+    case input_priority
+      when "high"; value = " ⇧"
+      when "medium"; value = " ⇨"
+      when "low"; value = " ⇩"
+      when nil; value = ""
+      else value = "exception"
+    end
     return value
   end
 
