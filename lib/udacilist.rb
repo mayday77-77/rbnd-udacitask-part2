@@ -12,7 +12,7 @@ class UdaciList
     type = type.downcase
     # Added item type check which initializes only if true
     if item_validity_check(type)
-      #probably do a check to avoid push if initialization fails
+      # Stop the push to the items array if initialization for Todo fails because of invalid priority
       @items.push TodoItem.new(description, options) if type == "todo"
       @items.push EventItem.new(description, options) if type == "event"
       @items.push LinkItem.new(description, options) if type == "link"

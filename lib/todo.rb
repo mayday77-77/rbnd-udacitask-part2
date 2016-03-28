@@ -18,7 +18,7 @@ class TodoItem
   end
 
   def priority_check(input_priority)
-    # reuse format_priority to check for the input of priority
+    # reuse format_priority in module Listable to check for the input of priority
     if format_priority(input_priority) == "exception"
       handle_priority_error
       return false
