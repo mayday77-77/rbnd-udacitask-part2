@@ -1,6 +1,8 @@
 class UdaciList
- # include UdaciListErrors
+
   attr_reader :title, :items
+  # implement the item types as a class array for easier scaling and tracking
+  @@item_types = ["todo","event","link"]
 
   def initialize(options={})
     # Added default title if none given
@@ -11,9 +13,9 @@ class UdaciList
   def add(type, description, options={})
     type = type.downcase
     # Added item type check which initializes only if true
-    if item_validity_check(type)
+    if @@item_types.include?(type)
       # Stop the push to the items array if initialization for Todo fails because of invalid priority
-      @items.push TodoItem.new(description, options) if type == "todo"
+      @items.push TodoItem.new(description, options) if type == "todo" 
       @items.push EventItem.new(description, options) if type == "event"
       @items.push LinkItem.new(description, options) if type == "link"
     else
@@ -25,25 +27,27 @@ class UdaciList
   def delete(index)
     # raise an error if index is not correct
       index <= @items.length ? @items.delete_at(index - 1) : handle_index_error
-
   end
 
-  def all
+  # Modify the method to accomodate filter method to print sublist
+  def all(options = {})
     puts "-" * @title.length
     puts @title
     puts "-" * @title.length
-    @items.each_with_index do |item, position|
+    print_items = options.empty? ? @items : options
+    print_items.each_with_index do |item, position|
       puts "#{position + 1}) #{item.details}"
     end
   end
 
-private
-  
-  # perhaps merge the below check to the add method to reduce number of methods?
-  def item_validity_check(input_type)
-    ["todo","event","link"].member?(input_type)
+  # additional feature to print only the specific types needed and reuse the method all for this sublist
+  def filter(item_type)
+    selected_items = @items.select {|each_item| each_item.type == item_type}
+    all(selected_items)
   end
 
+private
+  
   def handle_item_error
     begin
       raise UdaciListErrors::InvalidItemType, "\nAn Invalid Item Type was entered!"

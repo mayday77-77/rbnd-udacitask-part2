@@ -1,13 +1,18 @@
 class TodoItem
    include Listable
-  attr_reader :description, :due, :priority
+  attr_reader :description, :due, :priority, :type
+  # implement the priority types as a class array for easier scaling and tracking
+  @@priority_types = ["high","medium","low"]
 
   def initialize(description, options={})
-    # Added priority check which initializes only if true
-    if priority_check(options[:priority])
+    # Added priority check which initializes only if true (accepts valid type or null/nil)
+    if @@priority_types.include?(options[:priority]) || !options[:priority] 
+      @type = "todo"
       @description = description
       @due = options[:due] ? Chronic.parse(options[:due]) : options[:due]
       @priority = options[:priority]
+    else
+      handle_priority_error
     end
   end
 
@@ -15,16 +20,6 @@ class TodoItem
     format_description(@description) + "due: " +
     format_date(due_date: @due) +
     format_priority(@priority)
-  end
-
-  def priority_check(input_priority)
-    # reuse format_priority in module Listable to check for the input of priority
-    if format_priority(input_priority) == "exception"
-      handle_priority_error
-      return false
-    else
-      return true
-    end
   end
 
 private

@@ -24,8 +24,7 @@ module Listable
       when "high"; value = " ⇧"
       when "medium"; value = " ⇨"
       when "low"; value = " ⇩"
-      when nil; value = ""
-      else value = "exception"
+      else value = ""
     end
     return value
   end
