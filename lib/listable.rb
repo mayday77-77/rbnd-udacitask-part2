@@ -22,12 +22,20 @@ module Listable
   # refactor format_priority with switch/case
   def format_priority(input_priority)
     case input_priority
-      when "high"; value = " ⇧"
-      when "medium"; value = " ⇨"
-      when "low"; value = " ⇩"
+      when "high"; value = " ⇧".colorize(:red)
+      when "medium"; value = " ⇨".colorize(:green)
+      when "low"; value = " ⇩".colorize(:blue)
       else value = ""
     end
     return value
+  end
+
+  # Differentiate colors for different item types grep(reg exp) for beautifying table
+  def format_beautify(input_details)
+  	puts input_details
+  	input_details.lines.grep(/"\[todo\]"/) ? (puts "yes") : (puts "no")
+  	#color = "red" if input_details.lines.grep(/[event]/)
+  	return input_details.colorize(:blue)
   end
 
 end

@@ -1,5 +1,5 @@
 class UdaciList
-
+  include Listable
   attr_reader :title, :items
   # implement the item types as a class array for easier scaling and tracking
   @@item_types = ["todo","event","link","game"]
@@ -14,8 +14,7 @@ class UdaciList
     type = type.downcase
     # Added item type check which starts initialization only if true
     if @@item_types.include?(type)
-      # Stop the push to the items array if initialization for Todo fails because of invalid priority
-      if type == "todo"
+      if type == "todo"       # Stop the push to the items array if initialization for Todo fails because of invalid priority
         new_item = TodoItem.new(description, options)
         @items.push(new_item) if new_item.type
       end
@@ -23,8 +22,7 @@ class UdaciList
       @items.push LinkItem.new(description, options) if type == "link"
       @items.push GameItem.new(description, options) if type == "game"
     else
-      # if invalid item type is returned, raise an error
-      handle_item_error
+      handle_item_error # if invalid item type is returned, raise an error
     end
   end
 
@@ -34,9 +32,10 @@ class UdaciList
   end
 
   # Modify the method to accomodate filter method to print sublist
+  # Added artii class for title
   def all(options = {})
     puts "-" * @title.length
-    puts @title
+    puts @title.colorize(:blue)
     puts "-" * @title.length
     print_items = options.empty? ? @items : options
     print_items.each_with_index do |item, position|
@@ -54,9 +53,9 @@ class UdaciList
   def print_nice_all
     format_item_array = Array.new
     # Populate into new array with formatted rows
-    @items.each_with_index {|each_item, position| format_item_array << [position + 1, each_item.details]}
+    @items.each_with_index {|each_item, position| format_item_array << [position + 1, format_beautify(each_item.details)]}
     item_table = Terminal::Table.new do | table | # create new table with the formatting 
-      table.title = @title; table.headings = ['No.', 'Description']
+      table.title = @title.colorize(:blue) ; table.headings = ['No.', 'Description']
       format_item_array.each {|each_item| table << each_item; table.add_separator}
     end
     puts item_table
