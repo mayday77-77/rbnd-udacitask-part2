@@ -9,6 +9,7 @@ require_relative "lib/udacilist"
 require_relative "lib/todo"
 require_relative "lib/event"
 require_relative "lib/link"
+require_relative "lib/games" # add new item type
 
 list = UdaciList.new(title: "Julia's Stuff")
 list.add("todo", "Buy more cat food", due: "2016-02-03", priority: "low")
@@ -51,6 +52,17 @@ new_list.filter("event")
 #-----------------
 puts "\n-------Extra----------------\n"
 # Using Gem terminal-table to format the output
-list.print_nice_all
 puts "\n"
+new_list.print_nice_all
+puts "\n"
+
+# Create another item type call games which is inherited from class LinkItem
+puts "Added new item type Game\n"
+new_list.add("game", "http://gamespot.com", site_name: "Gamespot Homepage", game_title: "Starwars")
+new_list.print_nice_all
+
+puts "\n"
+# Allow deletion of multiple items, passing in an array
+new_list.delete_many([3,6,8])
+puts "After removing item 3,6 and 8 from original list\n"
 new_list.print_nice_all

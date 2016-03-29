@@ -2,7 +2,7 @@ class UdaciList
 
   attr_reader :title, :items
   # implement the item types as a class array for easier scaling and tracking
-  @@item_types = ["todo","event","link"]
+  @@item_types = ["todo","event","link","game"]
 
   def initialize(options={})
     # Added default title if none given
@@ -21,6 +21,7 @@ class UdaciList
       end
       @items.push EventItem.new(description, options) if type == "event"
       @items.push LinkItem.new(description, options) if type == "link"
+      @items.push GameItem.new(description, options) if type == "game"
     else
       # if invalid item type is returned, raise an error
       handle_item_error
@@ -59,6 +60,13 @@ class UdaciList
       format_item_array.each {|each_item| table << each_item; table.add_separator}
     end
     puts item_table
+  end
+
+  # Extra feature to delete multiple items
+  def delete_many(list_of_indexes)
+    unwanted_item_array = Array.new
+    list_of_indexes.each {| each_index | unwanted_item_array << @items[each_index-1]}
+    @items -= unwanted_item_array
   end
 
 private

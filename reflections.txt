@@ -2,16 +2,35 @@
 # -------------------------------------------------------
 1. What is the gem of your choice and how did you use it?
 Ans: I chose terminal-table as my 3rd Gem.
-I looked at the readme document from github for this Gem, and created a nicer formatted output with table.
+As described in the site :
+"Terminal Table is a fast and simple, yet feature rich ASCII table generator written in Ruby."
+I looked at the readme document(examples) from github for this Gem, and created a nicer formatted output with table.
 Tried to make use of the exposed methods of this class and understand how I should use them in my code.
 
 2. Describe the 2 features you added to the project.
-  a) Feature 1...
-  b) Feature 2...
+  a) Creating a new item type
+	 Created another game item type which inherits from LinkItem.
+	 Main prupose:
+		- I wanted games related stuff which can be tied to website but not part of a generic LinkItem
+		- I wanted to test how inheritance works as it seems like there is not much excercise coverage in the 
+		  projects so far regarding inheritance. 
+		  And its a good learning experience I must say.
+		  
+  b) Allow deletion of multiple items
+	Added a new method which delete multiple items in the array by passing in an array of indexes in the method "delete_many"
+	Made use of a new thing found which I can actually subtract arrays from one another
 
 # REFLECTIONS
 # -------------------------------------------------------
 1. How long did you spend working on this project?
+Ans: A few days, this project is much more complicated though.
+
 2. What was the most rewarding challenge you conquered?
+Ans: Learning how to use inheritance.
+
 3. What two additional features did you build? Why?
+Ans: As above, 1) Create new item type and 2)Allow multiple deletion of items.
+Explanation as point 2.
+
 4. Where do you still have room to grow?
+Ans: 
