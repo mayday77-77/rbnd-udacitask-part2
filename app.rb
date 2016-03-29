@@ -1,6 +1,7 @@
 require 'chronic'
 require 'colorize'
 # Find a third gem of your choice and add it to your project
+require 'terminal-table'
 require 'date'
 require_relative "lib/listable"
 require_relative "lib/errors"
@@ -24,11 +25,11 @@ list.all
 # --------------------------------------------------
 new_list = UdaciList.new # Should create a list called "Untitled List"
 new_list.add("todo", "Buy more dog food", due: "in 5 weeks", priority: "medium")
-new_list.add("todo", "Go dancing", due: "in 2 hours") # -- check
+new_list.add("todo", "Go dancing", due: "in 2 hours") 
 new_list.add("todo", "Buy groceries", priority: "high")
 new_list.add("event", "Birthday Party", start_date: "May 31")
 new_list.add("event", "Vacation", start_date: "Dec 20", end_date: "Dec 30")
-new_list.add("event", "Life happens") # -- check
+new_list.add("event", "Life happens") 
 new_list.add("link", "https://www.udacity.com/", site_name: "Udacity Homepage")
 new_list.add("link", "http://ruby-doc.org")
 
@@ -36,7 +37,7 @@ new_list.add("link", "http://ruby-doc.org")
 # ----------------------------
 new_list.add("image", "http://ruby-doc.org") # Throws InvalidItemType error
 new_list.delete(9) # Throws an IndexExceedsListSize error
-#new_list.add("todo", "Hack some portals", priority: "super high") # throws an InvalidPriorityValue error
+new_list.add("todo", "Hack some portals", priority: "super high") # throws an InvalidPriorityValue error
 
 # DISPLAY UNTITLED LIST
 # ---------------------
@@ -45,3 +46,11 @@ new_list.all
 # DEMO FILTER BY ITEM TYPE
 # ------------------------
 new_list.filter("event")
+
+# Extra Features
+#-----------------
+puts "\n-------Extra----------------\n"
+# Using Gem terminal-table to format the output
+list.print_nice_all
+puts "\n"
+new_list.print_nice_all

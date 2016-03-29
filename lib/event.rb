@@ -9,7 +9,8 @@ class EventItem
     @end_date = Date.parse(options[:end_date]) if options[:end_date]
   end
 
+  # Required feature to print item type
   def details
-    format_description(@description) + "event dates: " + format_date(start_date: @start_date, end_date: @end_date)
+    format_description(@description, @type) + "event dates: " + format_date(start_date: @start_date, end_date: @end_date, type: @type)
   end
 end

@@ -1,6 +1,10 @@
 # What you added to Udacitask 2.0
 # -------------------------------------------------------
 1. What is the gem of your choice and how did you use it?
+Ans: I chose terminal-table as my 3rd Gem.
+I looked at the readme document from github for this Gem, and created a nicer formatted output with table.
+Tried to make use of the exposed methods of this class and understand how I should use them in my code.
+
 2. Describe the 2 features you added to the project.
   a) Feature 1...
   b) Feature 2...

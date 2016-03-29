@@ -5,7 +5,7 @@ class TodoItem
   @@priority_types = ["high","medium","low"]
 
   def initialize(description, options={})
-    # Added priority check which initializes only if true (accepts valid type or null/nil)
+    # Added priority check which initializes only if true (accepts valid type or empty?)
     if @@priority_types.include?(options[:priority]) || !options[:priority] 
       @type = "todo"
       @description = description
@@ -16,8 +16,9 @@ class TodoItem
     end
   end
 
+  # Required feature to print item type
   def details
-    format_description(@description) + "due: " +
+    format_description(@description, @type) + "due: " +
     format_date(due_date: @due) +
     format_priority(@priority)
   end
@@ -31,6 +32,5 @@ private
       puts e
     end
   end
-
 
 end

@@ -12,10 +12,13 @@ class UdaciList
 
   def add(type, description, options={})
     type = type.downcase
-    # Added item type check which initializes only if true
+    # Added item type check which starts initialization only if true
     if @@item_types.include?(type)
       # Stop the push to the items array if initialization for Todo fails because of invalid priority
-      @items.push TodoItem.new(description, options) if type == "todo" 
+      if type == "todo"
+        new_item = TodoItem.new(description, options)
+        @items.push(new_item) if new_item.type
+      end
       @items.push EventItem.new(description, options) if type == "event"
       @items.push LinkItem.new(description, options) if type == "link"
     else
@@ -40,14 +43,27 @@ class UdaciList
     end
   end
 
-  # additional feature to print only the specific types needed and reuse the method all for this sublist
+  # Required feature to print only the specific types needed and reuse the method all for this sublist
   def filter(item_type)
     selected_items = @items.select {|each_item| each_item.type == item_type}
     all(selected_items)
   end
 
+  # Using Gem terminal-table to print item array in a nicer format
+  def print_nice_all
+    format_item_array = Array.new
+    # Populate into new array with formatted rows
+    @items.each_with_index {|each_item, position| format_item_array << [position + 1, each_item.details]}
+    item_table = Terminal::Table.new do | table | # create new table with the formatting 
+      table.title = @title; table.headings = ['No.', 'Description']
+      format_item_array.each {|each_item| table << each_item; table.add_separator}
+    end
+    puts item_table
+  end
+
 private
-  
+
+  # Handle invalid item type error  
   def handle_item_error
     begin
       raise UdaciListErrors::InvalidItemType, "\nAn Invalid Item Type was entered!"
@@ -55,7 +71,8 @@ private
       puts e
     end
   end
-
+  
+  # Handle invalid index number error  
   def handle_index_error
     begin
       raise UdaciListErrors::IndexExceedsListSize, "\nAn Invalid Index number is entered!"
