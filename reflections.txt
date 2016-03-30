@@ -33,4 +33,9 @@ Ans: As above, 1) Create new item type and 2)Allow multiple deletion of items.
 Explanation as point 2.
 
 4. Where do you still have room to grow?
-Ans: 
+Ans: There are still a few things to understand.
+1) I can see that there are priority icons used in this project and I believe they are unicodes? 
+How do we make use of them more if we want to? 
+2) We can further explorer on the Date/Chronic modules to help in parsing time and displaying them as well instead of just dates?
+3) Perhaps to be able start to input a real image object as item type though I am not sure how to show them in the application since its text based for now
+

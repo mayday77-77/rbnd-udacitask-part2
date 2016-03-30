@@ -30,12 +30,13 @@ module Listable
     return value
   end
 
-  # Differentiate colors for different item types grep(reg exp) for beautifying table
+  # Differentiate colors for different item types using grep(reg exp) for beautifying table
   def format_beautify(input_details)
-  	puts input_details
-  	input_details.lines.grep(/"\[todo\]"/) ? (puts "yes") : (puts "no")
-  	#color = "red" if input_details.lines.grep(/[event]/)
-  	return input_details.colorize(:blue)
+  	scheme = "cyan" if input_details.lines.grep(/\[todo\]/).any?
+    scheme = "red" if input_details.lines.grep(/\[event\]/).any?
+    scheme = "magenta" if input_details.lines.grep(/\[link\]/).any?
+    scheme = "green" if input_details.lines.grep(/\[game\]/).any?
+  	return input_details.colorize(:"#{scheme}")
   end
 
 end

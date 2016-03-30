@@ -35,7 +35,7 @@ class UdaciList
   # Added artii class for title
   def all(options = {})
     puts "-" * @title.length
-    puts @title.colorize(:blue)
+    puts @title.colorize(:color => :white, :background => :cyan)
     puts "-" * @title.length
     print_items = options.empty? ? @items : options
     print_items.each_with_index do |item, position|
@@ -55,7 +55,7 @@ class UdaciList
     # Populate into new array with formatted rows
     @items.each_with_index {|each_item, position| format_item_array << [position + 1, format_beautify(each_item.details)]}
     item_table = Terminal::Table.new do | table | # create new table with the formatting 
-      table.title = @title.colorize(:blue) ; table.headings = ['No.', 'Description']
+      table.title = @title.colorize(:color => :white, :background => :cyan) ; table.headings = ['No.', 'Description']
       format_item_array.each {|each_item| table << each_item; table.add_separator}
     end
     puts item_table

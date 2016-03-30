@@ -3,7 +3,6 @@ require 'chronic'
 require 'colorize'
 # Find a third gem of your choice and add it to your project
 require 'terminal-table'
-require 'artii'
 require 'date'
 require_relative "lib/listable"
 require_relative "lib/errors"
@@ -68,6 +67,5 @@ puts "\n"
 new_list.delete_many([3,6,8])
 puts "After removing item 3,6 and 8 from original list\n"
 new_list.print_nice_all
-#puts String.colors
 
 
